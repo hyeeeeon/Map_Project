@@ -1,9 +1,8 @@
-// 메인 화면(생성버튼)
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Post from "./post";
+import Post from "./PostUpload";
 
-function MainPage() {
+function Mainpage() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -36,5 +35,4 @@ function MainPage() {
         </div>
     );
 }
-
-export default MainPage;
+export default Mainpage;

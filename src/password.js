@@ -1,4 +1,5 @@
 //비밀번호 입력 화면
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -52,18 +53,24 @@ const CheckButton = styled(Link)`
     }
 `;
 
-function PassWord() {
+function Password() {
+    const [password, setPassword] = useState("");
+    const onSubmit = (event) => {
+        event.preventDefault();
+    }
     return (
         <Container>
             <H2>비밀번호</H2>
             <Ul>게시물을 업로드하기 위해 권한 확인이 필요합니다.</Ul>
-            <Input
-                type="text"
-                placeholder="비밀번호를 입력하세요."
-            />
-            <CheckButton to="/page">입력</CheckButton>
+            <form onSubmit={onSubmit}>
+                <input
+                    type="password"
+                    placeholder="비밀번호를 입력해 주세요"
+                    onChange={(event) => setPassword(event.target.value)} />
+                <CheckButton><Link to="/page">입력</Link></CheckButton>
+            </form>
         </Container>
     );
 }
 
-export default PassWord;
+export default Password;
