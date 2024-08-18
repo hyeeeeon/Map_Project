@@ -35,7 +35,7 @@ const BackButton = styled(Link)`
     background-color: white;
     color: black;
     border-radius: 8px;
-    border: 0.5px solid  #8D8D8D; /* 테두리 추가 */
+    border: 0.5px solid  #8D8D8D; 
     text-decoration: none;
     transition: 0.2s ease-in;
 

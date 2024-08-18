@@ -37,8 +37,8 @@ const Input = styled.input`
 `;
 
 const CheckButton = styled(Link)`
-    padding: 5px;
-    font-size: 16px;
+    padding: 4px;
+    font-size: 11px;
     width: 100px;
     text-align: center;
     background-color: #8D8D8D;
@@ -67,7 +67,7 @@ function Password() {
                     type="password"
                     placeholder="비밀번호를 입력해 주세요"
                     onChange={(event) => setPassword(event.target.value)} />
-                <CheckButton><Link to="/page">입력</Link></CheckButton>
+                <CheckButton to="/page">입력</CheckButton>
             </form>
         </Container>
     );
