@@ -1,7 +1,7 @@
-//비밀번호 입력 화면
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import usePosts from "./UsePosts";
 
 const Container = styled.div`
     display: flex;
@@ -23,7 +23,7 @@ const Ul = styled.ul`
 `;
 
 const Input = styled.input`
-    padding: 5px;
+    padding: 2px;
     font-size: 16px;
     width: 200px;
     text-align: center;
@@ -53,24 +53,34 @@ const CheckButton = styled(Link)`
     }
 `;
 
-function Password() {
-    const [password, setPassword] = useState("");
+function RePostPW() {
+    const { id } = useParams(); // URL에서 id 추출
+    const navigate = useNavigate(); // navigate 함수
+    const { posts } = usePosts(); 
+    const [password, setPassword] = useState(''); // 비밀번호 상태
+
     const onSubmit = (event) => {
         event.preventDefault();
+        handleReturn(); // 비밀번호 확인 후 이동
     }
+
+    const handleReturn = () => {
+        navigate('/createpost/'); 
+    };
+
     return (
         <Container>
-            <H2>비밀번호</H2>
+            <H2>비밀번호 확인</H2>
             <Ul>게시물을 업로드하기 위해 권한 확인이 필요합니다.</Ul>
             <form onSubmit={onSubmit}>
-                <input
+                <Input
                     type="password"
                     placeholder="비밀번호를 입력해 주세요"
                     onChange={(event) => setPassword(event.target.value)} />
-                <CheckButton to="/page">입력</CheckButton>
+                <CheckButton onClick={handleReturn} to={`/editpost/${id}`}>입력</CheckButton>
             </form>
         </Container>
     );
 }
 
-export default Password;
+export default RePostPW;

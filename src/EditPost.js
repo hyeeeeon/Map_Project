@@ -1,8 +1,6 @@
-//게시글 입력 화면
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import usePosts from "./UsePosts";
 
 const Container = styled.div`
@@ -75,20 +73,51 @@ const InputButton = styled.button`
     }
 `;
 
-function InputPost() {
-    const { id } = useParams(); 
-    const navigate = useNavigate();
-    const { addPost } = usePosts();
+function EditPost() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const { getPost } = usePosts(); // usePosts 훅에서 getPost 함수 가져오기
 
-    const onTitleChange = (event) => setTitle(event.target.value);
-    const onContentChange = (event) => setContent(event.target.value);
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const postFromStorage = localStorage.getItem('newPost');
+                if (postFromStorage) {
+                    const post = JSON.parse(postFromStorage);
+                    setTitle(post.title);
+                    setContent(post.content);
+                } else {
+                    const post = await getPost(Number(id));
+                    if (post) {
+                        setTitle(post.title);
+                        setContent(post.content);
+                    } else {
+                        console.error("게시물을 찾을 수 없습니다.");
+                    }
+                }
+            } catch (error) {
+                console.error("게시물 로드 중 오류 발생:", error);
+            }
+        };
+        fetchPost();
+    }, [id, getPost]);
 
-    const onButtonClick = async (event) => {
-        event.preventDefault();
-        const newPost = await addPost(Number(id), title, content);
-        navigate(`/post/${newPost.id}`);
+    const onTitleChange = (e) => {
+        setTitle(e.target.value);
+    };
+
+    const onContentChange = (e) => {
+        setContent(e.target.value);
+    };
+
+    const onButtonClick = () => {
+        // 게시물 저장 로직 추가
+        console.log("제목:", title);
+        console.log("본문:", content);
+        // 완료 후 다른 페이지로 이동할 경우
+        navigate('/some-other-page');
     };
 
     return (
@@ -110,9 +139,9 @@ function InputPost() {
                     placeholder="본문을 입력하세요." />
             </InputContainer>
 
-            <button onClick={onButtonClick}>확인</button>
+            <InputButton onClick={onButtonClick} to="/">완료</InputButton>
         </Container>
     );
 }
 
-export default InputPost;
+export default EditPost;
