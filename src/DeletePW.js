@@ -1,7 +1,8 @@
 //삭제 비밀번호 입력 화면
 import { useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import usePosts from "./UsePosts";
 
 const Container = styled.div`

@@ -82,23 +82,6 @@ const BackButton = styled(Link)`
     }
 `;
 
-const ReButton = styled(Link)`
-    padding: 5px;
-    font-size: 10px;
-    width: 160px;
-    text-align: center;
-    background-color: white;
-    color: black;
-    border-radius: 8px;
-    border: 0.5px solid  #8D8D8D; /* 테두리 추가 */
-    text-decoration: none;
-    transition: 0.2s ease-in;
-
-    &:hover {
-        transform: scale(1.02);
-    }
-`;
-
 function PostDetail() {
     const { id } = useParams(); 
     const navigate = useNavigate(); 
@@ -116,10 +99,6 @@ function PostDetail() {
         navigate(`/deletepassword/${id}`); 
     };
 
-    const handleReturnClick = () => {
-        navigate(`/repostpassword/${id}`); 
-    };
-
     return (
         <Container>
             {post ? (
@@ -130,7 +109,6 @@ function PostDetail() {
                     <br />
                     <DeleteButton onClick={handleDeleteClick} to={`/deletepassword/${id}`}>삭제</DeleteButton>
                     <BackButton to="/">홈 화면으로 이동</BackButton>
-                    <ReButton onClick={handleReturnClick} to={`/repostpassword/${id}`}>수정</ReButton>
                 </div>
             ) : (
                 <p>게시물을 불러오는 중입니다...</p>
